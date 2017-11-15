@@ -2,20 +2,26 @@
   <div class="layout" :class="{'layout-hide-text': spanLeft < 5}" id="menus">
     <i-row type="flex">
       <i-col :span="spanLeft" class="layout-menu-left">
-        <i-menu active-name="1" theme="dark" width="auto">
+        <i-menu :active-name="activeMenu" theme="dark" width="auto">
           <div class="layout-logo-left"></div>
-          <i-menu-item name="1">
-            <i-icon type="ios-navigate" :size="iconSize"></i-icon>
-            <span class="layout-text">Option 1</span>
+          <i-menu-item :name="item['link']['path']" v-for="(item, index) in menus" :key="index">
+            <router-link :to="item['link']">
+              <i-icon :type="item['icon']" :size="iconSize"></i-icon>
+              <span class="layout-text" v-cloak>{{item['name']}}</span>
+            </router-link>
           </i-menu-item>
-          <i-menu-item name="2">
-            <i-icon type="ios-keypad" :size="iconSize"></i-icon>
-            <span class="layout-text">Option 2</span>
-          </i-menu-item>
-          <i-menu-item name="3">
-            <i-icon type="ios-analytics" :size="iconSize"></i-icon>
-            <span class="layout-text">Option 3</span>
-          </i-menu-item>
+          <!--<i-menu-item name="1">-->
+            <!--<router-link :to="{path: '/logined/overview'}">-->
+              <!--<i-icon type="ios-navigate" :size="iconSize"></i-icon>-->
+              <!--<span class="layout-text">总览</span>-->
+            <!--</router-link>-->
+          <!--</i-menu-item>-->
+          <!--<i-menu-item name="2">-->
+            <!--<router-link :to="{path: '/logined/overview2'}">-->
+              <!--<i-icon type="ios-keypad" :size="iconSize"></i-icon>-->
+              <!--<span class="layout-text">Option 2</span>-->
+            <!--</router-link>-->
+          <!--</i-menu-item>-->
         </i-menu>
       </i-col>
       <i-col :span="spanRight" :offset="spanLeft">
@@ -29,19 +35,20 @@
           </div>
           <div class="clearfix"></div>
         </div>
-        <div class="layout-breadcrumb">
-          <i-breadcrumb>
-            <i-breadcrumb-item href="#">Index</i-breadcrumb-item>
-            <i-breadcrumb-item href="#">Apps</i-breadcrumb-item>
-            <i-breadcrumb-item>App</i-breadcrumb-item>
-          </i-breadcrumb>
-        </div>
+        <!--<div class="layout-breadcrumb">-->
+          <!--<i-breadcrumb>-->
+            <!--<i-breadcrumb-item href="#">Index</i-breadcrumb-item>-->
+            <!--<i-breadcrumb-item href="#">Apps</i-breadcrumb-item>-->
+            <!--<i-breadcrumb-item>App</i-breadcrumb-item>-->
+          <!--</i-breadcrumb>-->
+        <!--</div>-->
         <div class="layout-content">
-          <div class="layout-content-main">Content</div>
+          <router-view></router-view>
+          <!--<div class="layout-content-main">Content</div>-->
         </div>
-        <div class="layout-copy">
-          2011-2016 &copy; TalkingData
-        </div>
+        <!--<div class="layout-copy">-->
+          <!--2011-2016 &copy; TalkingData-->
+        <!--</div>-->
       </i-col>
     </i-row>
   </div>
@@ -52,7 +59,24 @@
     data () {
       return {
         spanLeft: 5,
-        spanRight: 19
+        spanRight: 19,
+        activeMenu: 'overview',
+        menus: [
+          {
+            name: '总览',
+            link: {
+              path: 'overview'
+            },
+            icon: 'overview-icon'
+          },
+          {
+            name: '网络',
+            link: {
+              path: 'network'
+            },
+            icon: 'overview-icon'
+          }
+        ]
       }
     },
     computed: {
@@ -69,30 +93,51 @@
           this.spanLeft = 5
           this.spanRight = 19
         }
+      },
+      initActiveMenu () {
+        let path = this.$route.path
+        path = path ? path.split('/') : ''
+        path = path ? path[path.length - 1] : ''
+        this.activeMenu = path
       }
     },
     components: {
       'v-dropdown': dropdown
+    },
+    created () {
+      this.initActiveMenu()
+    },
+    watch: {
+      '$route' () {
+        this.initActiveMenu()
+      }
     }
   }
 </script>
 <style type='text/css' rel='stylesheet'>
   .layout{
     /*border: 1px solid #d7dde4;*/
-    background: #f5f7f9;
+    /*background: #efefef;*/
     /*position: relative;*/
     /*border-radius: 4px;*/
     overflow: hidden;
+    height: 100%;
   }
   .layout-breadcrumb{
     padding: 10px 15px 0;
   }
   .layout-content{
     /*min-height: 200px;*/
-    margin: 15px;
-    overflow: hidden;
+    padding: 15px;
+    /*overflow: hidden;*/
     background: #fff;
-    border-radius: 4px;
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    /*border-radius: 4px;*/
   }
   .layout-content-main{
     padding: 10px;
@@ -108,9 +153,11 @@
     top: 0;
     left: 0;
     bottom: 0;
+    overflow: auto;
   }
   .layout-header{
     height: 60px;
+    background: #efefef;
     /*background: #fff;*/
     /*box-shadow: 0 1px 1px rgba(0,0,0,.1);*/
   }
@@ -132,5 +179,29 @@
   }
   #menus .logout{
     margin:15px;
+  }
+  #menus .ivu-menu-item{
+    padding: 0 !important;
+  }
+  #menus .ivu-menu-item a{
+    padding: 14px 24px;
+    color: rgba(255,255,255,.7);
+    display: block;
+  }
+  #menus .ivu-menu-item-active.ivu-menu-item-selected a{
+    color: #2d8cf0;
+  }
+  .ivu-icon-overview-icon{
+    background: url("/static/images/test.png") 0 0 no-repeat;
+    background-size: 100% 100%;
+    vertical-align: middle;
+  }
+  .ivu-col-span-5 .ivu-icon-overview-icon{
+    width: 14px;
+    height: 14px;
+  }
+  .ivu-col-span-2 .ivu-icon-overview-icon{
+    width: 24px;
+    height: 24px;
   }
 </style>

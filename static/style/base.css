@@ -5,6 +5,7 @@ html,body{
   background: #f9f9f7;
   font-family: "Microsoft YaHei";
   height: 100%;
+  font-size: 14px !important;
 }
 *{
   margin: 0;
@@ -56,4 +57,14 @@ img{
 }
 .clearfix:after{
   clear: both;
+}
+.ivu-row-flex{
+  position: relative !important;
+  height: 100% !important;
+}
+.welcome{
+  /*margin: 15px;*/
+  background: #fff;
+  line-height: 30px;
+  padding-bottom: 15px;
 }
