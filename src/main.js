@@ -14,14 +14,17 @@ import VueLazyload from 'vue-lazyload'
 import 'babel-polyfill'
 import 'eventsource-polyfill'
 import '@/api/fetch'
+import {store} from '@/api/store'
 Vue.config.productionTip = false
 Vue.use(iView)
 Vue.use(VueRouter)
 Vue.use(VueLazyload)
 /* eslint-disable no-new */
+
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

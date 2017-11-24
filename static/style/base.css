@@ -50,6 +50,9 @@ img{
 .right{
   float: right;
 }
+.left{
+  float: left;
+}
 .clearfix:before,
 .clearfix:after{
   display: table;
@@ -67,4 +70,32 @@ img{
   background: #fff;
   line-height: 30px;
   padding-bottom: 15px;
+}
+.text-center{
+  text-align: center;
+}
+.text-left{
+  text-align: left;
+}
+#menus .ivu-menu-item-active.ivu-menu-item-selected a{
+  border-right: 3px solid #04A9F5;
+  color: #fff !important;
+}
+.ivu-menu-dark{
+  background: rgba(37,40,49,1) !important;
+}
+.vertical-center-modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vertical-center-modal .ivu-modal{
+  top: 0;
+}
+.ivu-modal-header{
+  text-align: center;
+  font-size: 16px;
+}
+.ivu-modal-footer{
+  text-align: center !important;
 }

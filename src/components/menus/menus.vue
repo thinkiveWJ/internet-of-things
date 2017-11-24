@@ -24,7 +24,7 @@
           <!--</i-menu-item>-->
         </i-menu>
       </i-col>
-      <i-col :span="spanRight" :offset="spanLeft">
+      <i-col :span="spanRight">
         <div class="layout-header">
           <i-button type="text" @click="toggleClick">
             <i-icon type="navicon" size="32"></i-icon>
@@ -37,12 +37,12 @@
         </div>
         <!--<div class="layout-breadcrumb">-->
           <!--<i-breadcrumb>-->
-            <!--<i-breadcrumb-item href="#">Index</i-breadcrumb-item>-->
-            <!--<i-breadcrumb-item href="#">Apps</i-breadcrumb-item>-->
-            <!--<i-breadcrumb-item>App</i-breadcrumb-item>-->
+            <!--<i-breadcrumb-item href="#">网络管理</i-breadcrumb-item>-->
+            <!--<i-breadcrumb-item href="#">网关管理</i-breadcrumb-item>-->
+            <!--<i-breadcrumb-item>设备管理</i-breadcrumb-item>-->
           <!--</i-breadcrumb>-->
         <!--</div>-->
-        <div class="layout-content">
+        <div class="layout-content"  id="layout-content">
           <router-view></router-view>
           <!--<div class="layout-content-main">Content</div>-->
         </div>
@@ -72,7 +72,7 @@
           {
             name: '网络',
             link: {
-              path: 'network'
+              path: 'internet'
             },
             icon: 'overview-icon'
           }
@@ -98,6 +98,7 @@
         let path = this.$route.path
         path = path ? path.split('/') : ''
         path = path ? path[path.length - 1] : ''
+        path = path === 'equipment' || path === 'grouping' || path === 'gateway' ? 'internet' : path
         this.activeMenu = path
       }
     },
@@ -123,9 +124,9 @@
     overflow: hidden;
     height: 100%;
   }
-  .layout-breadcrumb{
-    padding: 10px 15px 0;
-  }
+  /*.layout-breadcrumb{*/
+    /*padding: 10px 15px 0;*/
+  /*}*/
   .layout-content{
     /*min-height: 200px;*/
     padding: 15px;
@@ -148,8 +149,8 @@
     color: #9ea7b4;
   }
   .layout-menu-left{
-    background: #464c5b;
-    position: absolute;
+    background: rgba(37,40,49,1);
+    /*position: absolute;*/
     top: 0;
     left: 0;
     bottom: 0;
@@ -178,7 +179,7 @@
     transition: width .2s ease-in-out;
   }
   #menus .logout{
-    margin:15px;
+    margin:15px 80px 15px 15px;
   }
   #menus .ivu-menu-item{
     padding: 0 !important;
