@@ -82,6 +82,7 @@
             }
             let token = data['token']
             let userId = data['userId']
+            this.$store.commit('setNickName', this.name)
             this.$store.commit('setToken', token)
             this.$store.commit('setUserId', userId)
             this.$router.push({path: '/logined/overview'})

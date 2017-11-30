@@ -17,7 +17,7 @@
     computed: {
       ...mapGetters([
         'getUserId',
-        'getMail'
+        'getNickName'
       ])
     },
     data () {
@@ -26,7 +26,7 @@
       }
     },
     created () {
-      this.useName = this.getMail
+      this.useName = this.getNickName
     },
     methods: {
       modifyPwd () {

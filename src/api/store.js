@@ -5,7 +5,8 @@ const store = new Vuex.Store({
   state: {
     token: '',
     userId: '',
-    mail: ''
+    mail: '',
+    nickName: ''
   },
   mutations: {
     setToken (state, token) {
@@ -19,6 +20,10 @@ const store = new Vuex.Store({
     setMail (state, mail) {
       sessionStorage.setItem('mail', mail)
       state.mail = mail
+    },
+    setNickName (state, nickName) {
+      sessionStorage.setItem('nickName', nickName)
+      state.nickName = nickName
     }
   },
   getters: {
@@ -36,6 +41,11 @@ const store = new Vuex.Store({
       let mail = sessionStorage.getItem('mail')
       state.mail = mail
       return state.mail
+    },
+    getNickName: state => {
+      let nickName = sessionStorage.getItem('nickName')
+      state.nickName = nickName
+      return state.nickName
     }
   }
 })

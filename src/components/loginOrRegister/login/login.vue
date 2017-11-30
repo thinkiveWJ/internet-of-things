@@ -59,6 +59,8 @@
             }
             let token = data['token']
             let userId = data['userId']
+            let nickName = data['name']
+            this.$store.commit('setNickName', nickName)
             this.$store.commit('setMail', this.name)
             this.$store.commit('setToken', token)
             this.$store.commit('setUserId', userId)

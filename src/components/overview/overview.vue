@@ -126,10 +126,6 @@
     }
   }
 </script>
-<li data-useId="12"><i class=""></i>使用</li>
-$('li').unbind('click').bind('click', function(){
-  var userId = $(this)
-})
 <style type='text/css' rel='stylesheet'>
   #overview .main{
     padding: 0 8px;
