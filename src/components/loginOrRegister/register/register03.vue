@@ -1,6 +1,10 @@
 <template>
   <div id="register" class="register">
       <div class="register-title text-center">注册</div>
+    <div class="register-content">
+      <div>邮箱</div>
+      <div><i-input type="text" disabled v-model="userName"></i-input></div>
+    </div>
       <div class="register-content">
         <div>姓名</div>
         <div><i-input type="text" v-model="name" placeholder="请输入您的姓名"></i-input></div>
@@ -22,10 +26,14 @@
   export default {
     data () {
       return {
+        userName: '',
         name: '',
         password: '',
         password2: ''
       }
+    },
+    created () {
+      this.userName = this.$route.query.mail
     },
     methods: {
       userRegister () {

@@ -1,10 +1,10 @@
 <template>
   <div id="reset" class="reset">
       <div class="reset-title text-center">重置密码</div>
-      <!--<div class="reset-content">-->
-        <!--<div>姓名</div>-->
-        <!--<div><i-input type="text" v-model="name" placeholder="请输入您的姓名"></i-input></div>-->
-      <!--</div>-->
+      <div class="reset-content">
+        <div>邮箱</div>
+        <div><i-input type="text" disabled v-model="userName"></i-input></div>
+      </div>
       <div class="reset-content">
         <div>设置密码（8-16位字母加数字组合）</div>
         <div><i-input type="password" v-model="password" placeholder="请输入设置您的密码"></i-input></div>
@@ -19,18 +19,15 @@
 <script type='text/ecmascript-6'>
   import {passwordValidate} from '@/api/validate'
   import {getSignFunc} from '@/api/common'
-  import {mapGetters} from 'vuex'
   export default {
-    computed: {
-      ...mapGetters([
-        'getToken'
-      ])
-    },
     data () {
       return {
         password: '',
         password2: ''
       }
+    },
+    created () {
+      this.userName = this.$route.query.mail
     },
     methods: {
       modifyPwd () {
@@ -60,8 +57,7 @@
             url: '/user/modifyPwd.do',
             headers: {
               sign: sign,
-              code: code,
-              token: this.getToken
+              code: code
             },
             data: {
               userName: userName,

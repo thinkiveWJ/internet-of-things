@@ -1,65 +1,70 @@
 <template>
   <div id="overview">
-    <div class="welcome">
-      欢迎回来，Darren
+    <!--<div class="welcome">-->
+      <!--欢迎回来，Darren-->
+    <!--</div>-->
+
+    <div v-for="(item, index) in networkList" :key="index">
+      <div class="title" v-cloak="">
+       {{item['networkName']}}  <span class="status">{{item['status']}}</span>
+      </div>
+      <i-row class="main" :gutter="16" type="flex">
+        <i-col :span="6" offset="3">
+          <router-link :to="{path: 'gateway'}">
+            <i-row type="flex" align="middle" class="item">
+              <i-col :span="8">
+                <img v-lazy="'/static/images/web-gateway.png'" alt="网关">
+              </i-col>
+              <i-col :span="16" class="text-center">
+                <div class="num" v-cloak="">{{item['gatewayCount']}}</div>
+                <div class="name">网关</div>
+              </i-col>
+            </i-row>
+          </router-link>
+        </i-col>
+        <i-col :span="6">
+          <router-link :to="{path: 'equipment'}">
+            <i-row type="flex" align="middle" class="item">
+              <i-col :span="8">
+                <img v-lazy="'/static/images/web-eauipment.png'" alt="设备">
+              </i-col>
+              <i-col :span="16" class="text-center">
+                <div class="num" v-cloak="">{{item['deviceCount']}}</div>
+                <div class="name">设备</div>
+              </i-col>
+            </i-row>
+          </router-link>
+        </i-col>
+        <i-col :span="6">
+          <router-link :to="{path: 'grouping'}">
+            <i-row type="flex" align="middle" class="item">
+              <i-col :span="8">
+                <img v-lazy="'/static/images/web-Grouping.png'" alt="分组">
+              </i-col>
+              <i-col :span="16" class="text-center">
+                <div class="num" v-cloak="">{{item['groupCount']}}</div>
+                <div class="name">分组</div>
+              </i-col>
+            </i-row>
+          </router-link>
+        </i-col>
+        <!--<i-col :span="6">-->
+          <!--<router-link :to="{path: ''}">-->
+            <!--<i-row type="flex" align="middle" class="item">-->
+              <!--<i-col :span="8">-->
+                <!--<img v-lazy="'/static/images/finance.png'" alt="">-->
+              <!--</i-col>-->
+              <!--<i-col :span="16" class="text-center">-->
+                <!--<div class="num">999</div>-->
+                <!--<div class="name">办公司</div>-->
+              <!--</i-col>-->
+            <!--</i-row>-->
+          <!--</router-link>-->
+        <!--</i-col>-->
+      </i-row>
     </div>
-    <div class="title">
-      网络1 <span class="status">在线</span>
-    </div>
+
     <i-row class="main" :gutter="16" type="flex">
-      <i-col :span="6">
-        <router-link :to="{path: ''}">
-          <i-row type="flex" align="middle" class="item">
-            <i-col :span="8">
-              <img v-lazy="'/static/images/finance.png'" alt="">
-            </i-col>
-            <i-col :span="16" class="text-center">
-              <div class="num">999</div>
-              <div class="name">网关</div>
-            </i-col>
-          </i-row>
-        </router-link>
-      </i-col>
-      <i-col :span="6">
-        <router-link :to="{path: ''}">
-          <i-row type="flex" align="middle" class="item">
-            <i-col :span="8">
-              <img v-lazy="'/static/images/finance.png'" alt="">
-            </i-col>
-            <i-col :span="16" class="text-center">
-              <div class="num">999</div>
-              <div class="name">设备</div>
-            </i-col>
-          </i-row>
-        </router-link>
-      </i-col>
-      <i-col :span="6">
-        <router-link :to="{path: ''}">
-          <i-row type="flex" align="middle" class="item">
-            <i-col :span="8">
-              <img v-lazy="'/static/images/finance.png'" alt="">
-            </i-col>
-            <i-col :span="16" class="text-center">
-              <div class="num">999</div>
-              <div class="name">分组</div>
-            </i-col>
-          </i-row>
-        </router-link>
-      </i-col>
-      <i-col :span="6">
-        <router-link :to="{path: ''}">
-          <i-row type="flex" align="middle" class="item">
-            <i-col :span="8">
-              <img v-lazy="'/static/images/finance.png'" alt="">
-            </i-col>
-            <i-col :span="16" class="text-center">
-              <div class="num">999</div>
-              <div class="name">办公司</div>
-            </i-col>
-          </i-row>
-        </router-link>
-      </i-col>
-      <i-col :span="24"></i-col>
       <i-col :span="12" class="text-left">
         <div class="plan">
           <div class="plan-title">今日计划</div>
@@ -103,7 +108,28 @@
   </div>
 </template>
 <script type='text/ecmascript-6'>
+  export default {
+    data () {
+      return {
+        networkList: []
+      }
+    },
+    created () {
+      this.$ajax(this, {
+        url: '/network/queryNetwork.do',
+        data: {}
+      }, (result) => {
+        result['data'] = result['data'] ? result['data'] : {'networkList': []}
+        this.networkList = result['data']['networkList']
+        this.networkList = this.networkList ? this.networkList : []
+      })
+    }
+  }
 </script>
+<li data-useId="12"><i class=""></i>使用</li>
+$('li').unbind('click').bind('click', function(){
+  var userId = $(this)
+})
 <style type='text/css' rel='stylesheet'>
   #overview .main{
     padding: 0 8px;
@@ -113,9 +139,9 @@
     display: block;
     color: #333;
   }
-  #overview .main + .main{
-    margin-top: 15px !important;
-  }
+  /*#overview .main + .main{*/
+    /*margin-top: 15px !important;*/
+  /*}*/
   #overview .title,
   #overview .message .message-title{
     background:rgba(232,236,241,1);

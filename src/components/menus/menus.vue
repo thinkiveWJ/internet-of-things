@@ -67,14 +67,14 @@
             link: {
               path: 'overview'
             },
-            icon: 'overview-icon'
+            icon: 'Overview-icon'
           },
           {
             name: '网络',
             link: {
               path: 'internet'
             },
-            icon: 'overview-icon'
+            icon: 'net-icon'
           }
         ]
       }
@@ -98,7 +98,7 @@
         let path = this.$route.path
         path = path ? path.split('/') : ''
         path = path ? path[path.length - 1] : ''
-        path = path === 'equipment' || path === 'grouping' || path === 'gateway' ? 'internet' : path
+        path = path === 'equipment' || path === 'grouping' || path === 'gateway' || path === 'power' ? 'internet' : path
         this.activeMenu = path
       }
     },
@@ -192,16 +192,21 @@
   #menus .ivu-menu-item-active.ivu-menu-item-selected a{
     color: #2d8cf0;
   }
-  .ivu-icon-overview-icon{
-    background: url("/static/images/test.png") 0 0 no-repeat;
+  .ivu-icon-Overview-icon{
+    background: url("/static/images/Overview.png") 0 0 no-repeat;
     background-size: 100% 100%;
     vertical-align: middle;
   }
-  .ivu-col-span-5 .ivu-icon-overview-icon{
-    width: 14px;
-    height: 14px;
+  .ivu-icon-net-icon{
+    background: url("/static/images/net.png") 0 0 no-repeat;
+    background-size: 100% 100%;
+    vertical-align: middle;
   }
-  .ivu-col-span-2 .ivu-icon-overview-icon{
+  .ivu-col-span-5 .ivu-icon{
+    width: 16px;
+    height: 16px;
+  }
+  .ivu-col-span-2 .ivu-icon{
     width: 24px;
     height: 24px;
   }

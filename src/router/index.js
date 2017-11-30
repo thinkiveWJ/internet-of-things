@@ -60,12 +60,16 @@ export default new Router({
         {
           path: 'internet',
           component: resolve => require(['@/components/network/internet'], resolve)
+        },
+        {
+          path: 'power',
+          component: resolve => require(['@/components/network/power'], resolve)
         }
       ]
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
-    // {
-    //   path: '*',
-    //   component: resolve => require(['@/components/loginOrRegister/login/login'], resolve)
-    // }
   ]
 })

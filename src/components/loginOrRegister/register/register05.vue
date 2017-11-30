@@ -1,10 +1,10 @@
 <template>
   <div id="forget" class="forget">
       <div class="forget-title text-center">找回密码</div>
-      <!--<div class="forget-content">-->
-        <!--<div>姓名</div>-->
-        <!--<div><i-input type="text" v-model="name" placeholder="请输入您的姓名"></i-input></div>-->
-      <!--</div>-->
+      <div class="forget-content">
+        <div>邮箱</div>
+        <div><i-input type="text" disabled v-model="userName"></i-input></div>
+      </div>
       <div class="forget-content">
         <div>设置密码（8-16位字母加数字组合）</div>
         <div><i-input type="password" v-model="password" placeholder="请输入设置您的密码"></i-input></div>
@@ -25,6 +25,9 @@
         password: '',
         password2: ''
       }
+    },
+    created () {
+      this.userName = this.$route.query.mail
     },
     methods: {
       getbackPwd () {

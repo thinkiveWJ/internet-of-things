@@ -1,7 +1,7 @@
 <template>
   <i-dropdown id="dropdown">
-    <a href="javascript:void(0)">
-      下拉菜单
+    <a href="javascript:void(0)" v-cloak="">
+      {{useName}}
       <i-icon type="arrow-down-b"></i-icon>
     </a>
     <i-dropdown-menu slot="list">
@@ -16,19 +16,25 @@
   export default {
     computed: {
       ...mapGetters([
-        'getToken',
-        'getUserId'
+        'getUserId',
+        'getMail'
       ])
+    },
+    data () {
+      return {
+        useName: ''
+      }
+    },
+    created () {
+      this.useName = this.getMail
     },
     methods: {
       modifyPwd () {
 //        获取签名以发送邮件
         getSignFunc(this, (sign) => {
-          let token = this.getToken
           this.$ajax(this, {
             url: '/user/sendModifyPwdMail.do',
             headers: {
-              token: token,
               sign: sign
             },
             data: {
@@ -47,9 +53,6 @@
       loginOut () {
         this.$ajax(this, {
           url: '/user/loginOut.do',
-          headers: {
-            token: this.getToken
-          },
           data: {
             userId: this.getUserId
           }

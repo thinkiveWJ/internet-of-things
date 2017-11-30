@@ -3,7 +3,7 @@
   box-shadow:none;  }
 html,body{
   background: #f9f9f7;
-  font-family: "Microsoft YaHei";
+  font-family: Helvetica, Arial, "Lucida Family", "Microsoft YaHei", "Verdana";
   height: 100%;
   font-size: 14px !important;
 }
@@ -45,7 +45,7 @@ img{
   font-size: 0;
 }
 .none{
-  display: none;
+  display: none !important;
 }
 .right{
   float: right;
